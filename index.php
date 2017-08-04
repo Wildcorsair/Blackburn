@@ -16,7 +16,7 @@ $em = new EntityManagerV2();
 $users = $em->setModel(User::class)->all();
 
 echo '<pre>';
-var_dump($users[0]->getEmail());
+// var_dump($users[0]->getEmail());
 var_dump($users);
 echo '</pre>';
 

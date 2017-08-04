@@ -9,10 +9,6 @@ class EntityManagerV2
 {
 	protected $dbh;
 	protected $class;
-	private $host = 'localhost';
-	private $dbname = 'debra';
-	private $dbuser = 'root';
-	private $dbpass = '123321';
 
 	public function __construct()
 	{
