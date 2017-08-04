@@ -27,6 +27,10 @@ class User extends Model
     protected $email;
 
     /**
+     * @var string
+     */
+    protected static $tableName = 'users';
+    /**
      * @return int
      */
     public function getId()

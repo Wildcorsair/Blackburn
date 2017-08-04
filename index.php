@@ -13,10 +13,11 @@ use Lango\Entity\User;
 //$user = $em->setModel('Lango\Entity\User')->findById(2);
 
 $em = new EntityManagerV2();
-$users = $em->setModel(User::class)->findAll();
+$users = $em->setModel(User::class)->all();
 
 echo '<pre>';
 var_dump($users[0]->getEmail());
+var_dump($users);
 echo '</pre>';
 
 //foreach ($users as $user) {

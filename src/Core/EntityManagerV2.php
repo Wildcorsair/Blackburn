@@ -8,56 +8,57 @@ namespace Lango\Core;
 class EntityManagerV2
 {
 	protected $dbh;
-    protected $class;
-    private $host = 'localhost';
-    private $dbname = 'margo';
-    private $dbuser = 'root';
-    private $dbpass = 'k13JU357@';
+	protected $class;
+	private $host = 'localhost';
+	private $dbname = 'debra';
+	private $dbuser = 'root';
+	private $dbpass = '123321';
 
 	public function __construct()
 	{
-        try {
-            $dsn = "mysql:host={$this->host};dbname={$this->dbname}";
-            $this->dbh = new \PDO($dsn, $this->dbuser, $this->dbpass);
-        } catch (\PDOException $e) {
-            echo 'PDO database connection error: ' . $e->getMessage();
-        }
+		try {
+		    $dsn = "mysql:host={$this->host};dbname={$this->dbname}";
+		    $this->dbh = new \PDO($dsn, $this->dbuser, $this->dbpass);
+		} catch (\PDOException $e) {
+		    echo 'PDO database connection error: ' . $e->getMessage();
+		}
 	}
 
 	public function setModel($class)
-    {
-        if (!empty($class)) {
-            $this->class = $class;
-        }
-        return $this;
-    }
+	{
+		if (!empty($class)) {
+		    $this->class = $class;
+			$this->tableName = $class::getTableName();
+		}
+		return $this;
+	}
 
-	public function findAll()
-    {
-        $dataset = [];
+	public function all()
+	{
+		$dataset = [];
 
-        if (!empty($this->class)) {
-            $stmt = $this->dbh->prepare('SELECT * FROM `users`');
-            $stmt->execute();
+	    if (!empty($this->class)) {
+	        $stmt = $this->dbh->prepare("SELECT * FROM `{$this->tableName}`");
+	        $stmt->execute();
 
-            while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-                $obj = new $this->class;
-                $props = $obj->getProperties();
+	        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+	            $obj = new $this->class;
+	            $props = $obj->getProperties();
 
-                foreach ($props as $property) {
-                    if (isset($row[$property])) {
-                        $setter = 'set' . ucfirst($property);
-                        $obj->$setter($row[$property]);
-                    }
-                }
+	            foreach ($props as $property) {
+	                if (isset($row[$property])) {
+	                    $setter = 'set' . ucfirst($property);
+	                    $obj->$setter($row[$property]);
+	                }
+	            }
 
-                $dataset[] = $obj;
-            }
-            return $dataset;
-        } else {
-            echo 'Empty Model name.';
-        }
-    }
+	            $dataset[] = $obj;
+	        }
+	        return $dataset;
+	    } else {
+	        echo 'Empty Model name.';
+	    }
+	}
 
     /*public function findById($id)
     {
