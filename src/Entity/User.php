@@ -1,8 +1,7 @@
 <?php
+namespace Debra\Entity;
 
-namespace Lango\Entity;
-
-use Lango\Core\Model;
+use Debra\Core\Model;
 
 class User extends Model
 {

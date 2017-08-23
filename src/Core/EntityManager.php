@@ -1,6 +1,7 @@
 <?php
+namespace Debra\Core;
 
-namespace Lango\Core;
+use Debra\Core\Database;
 
 /**
 * Database connection class
@@ -8,59 +9,84 @@ namespace Lango\Core;
 class EntityManager
 {
 	protected $dbh;
-    protected $class;
-    private $host = 'localhost';
-    private $dbname = 'margo';
-    private $dbuser = 'root';
-    private $dbpass = 'k13JU357@';
+	protected $class;
 
 	public function __construct()
 	{
-        try {
-            $dsn = "mysql:host={$this->host};dbname={$this->dbname}";
-            $this->dbh = new \PDO($dsn, $this->dbuser, $this->dbpass);
-        } catch (\PDOException $e) {
-            echo 'PDO database connection error: ' . $e->getMessage();
-        }
+		$database = new Database();
+		$this->dbh = $database->connect();
 	}
 
 	public function setModel($class)
-    {
-        if (!empty($class)) {
-            $this->class = $class;
-        }
-        return $this;
-    }
+	{
+		if (!empty($class)) {
+		    $this->class = $class;
+			$this->tableName = $class::getTableName();
+		}
+		return $this;
+	}
 
-	public function findAll()
-    {
-        $dataset = [];
+	public function all()
+	{
+		$dataset = [];
 
-        if (!empty($this->class)) {
-            $stmt = $this->dbh->prepare('SELECT * FROM `users`');
-            $stmt->execute();
-            while ($row = $stmt->fetchObject($this->class)) {
-                $dataset[] = $row;
-            }
-            return $dataset;
-        } else {
-            echo 'Empty Model name.';
-        }
-    }
+		try {
+			if (!empty($this->class)) {
+				$stmt = $this->dbh->prepare("SELECT * FROM `{$this->tableName}`");
+				$stmt->execute();
 
-    public function findById($id)
+				while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+					$obj = new $this->class;
+					$props = $obj->getProperties();
+
+					foreach ($props as $property) {
+						if (isset($row[$property])) {
+							$setter = 'set' . ucfirst($property);
+							$obj->$setter($row[$property]);
+						}
+					}
+
+					$dataset[] = $obj;
+				}
+				return $dataset;
+			}
+		} catch (\Exception $e) {
+			echo 'Error: ' . $e->getMessage();
+		}
+
+	}
+
+    public function find($id)
     {
-        if (is_numeric($id)) {
-            if (!empty($this->class)) {
-                $stmt = $this->dbh->prepare('SELECT * FROM `users` WHERE `id` = :id LIMIT 0, 1');
-                $stmt->execute(array('id' => $id));
-                $row = $stmt->fetchObject($this->class);
-                return $row;
-            } else {
-                echo 'Empty Model name.';
-            }
-        } else {
-            echo 'ID must be an INTEGER type.';
-        }
+		try {
+			if (is_numeric($id)) {
+				if (!empty($this->class)) {
+					$dataset = [];
+
+					$stmt = $this->dbh->prepare("SELECT * FROM `{$this->tableName}` WHERE `id` = :id LIMIT 0, 1");
+					$stmt->execute(array('id' => $id));
+
+					$row = $stmt->fetch(\PDO::FETCH_ASSOC);
+					$obj = new $this->class;
+					$props = $obj->getProperties();
+
+					foreach ($props as $property) {
+						if (isset($row[$property])) {
+							$setter = 'set' . ucfirst($property);
+							$obj->$setter($row[$property]);
+						}
+					}
+
+					return $obj;
+
+				} else {
+					throw new Exception("Empty Model name.", 1);
+				}
+			} else {
+				throw new Exception("ID must be an INTEGER type.", 1);
+			}
+		} catch (\Exception $e) {
+			echo '<strong>Error:</strong> ' . $e->getMessage();
+		}
     }
 }

@@ -1,5 +1,5 @@
 {
-    "name": "lango/tools",
+    "name": "debra/orm",
     "description": "Sandbox for test project",
     "type": "project",
     "license": "MIT",
@@ -13,7 +13,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Lango\\": "src/"
+            "Debra\\": "src/"
         }
     }
 }

@@ -1,6 +1,5 @@
 <?php
-
-namespace Lango\Core;
+namespace Debra\Core;
 
 
 class Model
