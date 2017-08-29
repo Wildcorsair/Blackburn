@@ -10,6 +10,8 @@ class EntityManager
 {
 	protected $dbh;
 	protected $class;
+	protected $tableName;
+	private $query;
 
 	public function __construct()
 	{
@@ -24,6 +26,11 @@ class EntityManager
 			$this->tableName = $class::getTableName();
 		}
 		return $this;
+	}
+
+	public function getQuery()
+	{
+		return $this->query;
 	}
 
 	public function all()
@@ -89,4 +96,82 @@ class EntityManager
 			echo '<strong>Error:</strong> ' . $e->getMessage();
 		}
     }
+
+	public function where(Array $conditions)
+	{
+		try {
+			if (empty($conditions) && !is_array($conditions)) {
+				throw new Exception("Conditions are empty.", 100);
+			}
+
+			if (!empty($this->class)) {
+				$this->query = "SELECT * FROM `{$this->tableName}` WHERE ";
+
+				for ($i = 0; $i < count($conditions); $i++) {
+					if ($i == count($conditions) - 1) {
+						$this->query .= $conditions[$i];
+					} else {
+						$this->query .= $conditions[$i] . ' AND ';
+					}
+				}
+
+				return $this;
+
+			} else {
+				throw new Exception("Empty Model name.", 1);
+			}
+		} catch (\Exception $e) {
+			echo '<strong>Error:</strong> ' . $e->getMessage();
+		}
+	}
+
+	public function orWhere($conditions)
+	{
+		$this->query .= ' OR ';
+		for ($i = 0; $i < count($conditions); $i++) {
+			if ($i == count($conditions) - 1) {
+				$this->query .= $conditions[$i];
+			} else {
+				$this->query .= $conditions[$i] . ' AND ';
+			}
+		}
+
+		return $this;
+	}
+
+	public function setParams($params)
+	{
+		if (!empty($params) && is_array($params)) {
+			$this->params = $params;
+		}
+		return $this;
+	}
+
+	public function get()
+	{
+		$dataset = [];
+		$stmt = $this->dbh->prepare($this->query);
+		$stmt->execute($this->params);
+
+		while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+			$obj = new $this->class;
+			$props = $obj->getProperties();
+
+			foreach ($props as $property) {
+				if (isset($row[$property])) {
+					$setter = 'set' . ucfirst($property);
+					$obj->$setter($row[$property]);
+				}
+			}
+
+			$dataset[] = $obj;
+		}
+		return $dataset;
+	}
+
+	public function persist($model)
+	{
+		// TODO: persist model object to database
+		var_dump($model);
+	}
 }

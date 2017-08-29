@@ -29,6 +29,7 @@ class User extends Model
      * @var string
      */
     protected static $tableName = 'users';
+
     /**
      * @return int
      */
