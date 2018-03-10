@@ -7,7 +7,7 @@ class Database
     /**
      * Load database configuration from file
      */
-    public function loadConfiruration()
+    public function loadConfiguration()
     {
         $config = __DIR__  . '/../../config/database.cfg.php';
         try {
@@ -26,7 +26,7 @@ class Database
     {
         try {
             // Load database configuration from file
-            $this->loadConfiruration();
+            $this->loadConfiguration();
 
             // Initialize connection with database
             $dsn = "mysql:host={$this->config['host']};dbname={$this->config['dbname']}";
