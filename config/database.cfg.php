@@ -3,6 +3,6 @@
 return [
     'host' => 'localhost',
     'dbname' => 'debra',
-    'dbuser' => 'root',
-    'dbpass' => '123321'
+    'dbuser' => 'debra',
+    'dbpass' => '12345678'
 ];

@@ -1,8 +1,6 @@
 <?php
 namespace Debra\Core;
 
-use Debra\Core\Database;
-
 /**
 * Database connection class
 */
@@ -68,8 +66,6 @@ class EntityManager
 		try {
 			if (is_numeric($id)) {
 				if (!empty($this->class)) {
-					$dataset = [];
-
 					$stmt = $this->dbh->prepare("SELECT * FROM `{$this->tableName}` WHERE `id` = :id LIMIT 0, 1");
 					$stmt->execute(array('id' => $id));
 
@@ -149,7 +145,7 @@ class EntityManager
 
 	public function get()
 	{
-		$dataset = [];
+		$dataSet = [];
 		$stmt = $this->dbh->prepare($this->query);
 		$stmt->execute($this->params);
 
@@ -164,9 +160,9 @@ class EntityManager
 				}
 			}
 
-			$dataset[] = $obj;
+			$dataSet[] = $obj;
 		}
-		return $dataset;
+		return $dataSet;
 	}
 
 	public function persist($model)

@@ -18,7 +18,7 @@ class User extends Model
     /**
      * @var string
      */
-    protected $pass;
+    protected $password;
 
     /**
      * @var string
@@ -65,17 +65,17 @@ class User extends Model
     /**
      * @return string
      */
-    public function getPass()
+    public function getPassword()
     {
-        return $this->pass;
+        return $this->password;
     }
 
     /**
      * @param string $pass
      */
-    public function setPass($pass)
+    public function setPassword($password)
     {
-        $this->pass = $pass;
+        $this->password = $password;
     }
 
     /**
