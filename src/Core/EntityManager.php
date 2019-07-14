@@ -10,6 +10,7 @@ class EntityManager
 	protected $class;
 	protected $tableName;
 	private $query;
+	public $params;
 
 	public function __construct()
 	{
@@ -167,7 +168,44 @@ class EntityManager
 
 	public function persist($model)
 	{
-		// TODO: persist model object to database
-		var_dump($model);
+		if (empty($model)) {
+		    return false;
+        }
+
+        try {
+            $props = $model->getProperties();
+
+            $fields = '';
+            $placeholders = '';
+            $values = [];
+
+
+            if (empty($model->getId())) {
+                foreach ($props as $property) {
+                    $fields .= "`{$property}`,";
+                    $placeholders .= ":{$property},";
+                    $getter = 'get' . ucfirst($property);
+                    $values[$property] = $model->$getter($property);
+                }
+
+                $fields = rtrim($fields, ',');
+                $placeholders = rtrim($placeholders, ',');
+
+                $this->query = "INSERT INTO `{$this->tableName}` ({$fields}) VALUES ({$placeholders});";
+            } else {
+                foreach ($props as $property) {
+                    $fields .= "`{$property}` = :{$property},";
+                    $getter = 'get' . ucfirst($property);
+                    $values[$property] = $model->$getter($property);
+                }
+
+                $fields = rtrim($fields, ',');
+                $this->query = "UPDATE `{$this->tableName}` SET {$fields} WHERE `id` = :id;";
+            }
+            $stmt = $this->dbh->prepare($this->query);
+            $stmt->execute($values);
+        } catch (\Exception $e) {
+            echo '<strong>Error:</strong> ' . $e->getMessage();
+        }
 	}
 }

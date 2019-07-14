@@ -8,8 +8,11 @@ use Debra\Core\EntityManager;
 use Debra\Entity\User;
 
 $em = new EntityManager();
+// Method returns single object
+//$user = $em->setModel(User::class)->find(1);
+
+// Methods return multiple objects
 //$users = $em->setModel(User::class)->all();
-//$users = $em->setModel(User::class)->find(1);
 $users = $em->setModel(User::class)->where([
     'id = :id'
 ])->orWhere([
@@ -21,11 +24,6 @@ $users = $em->setModel(User::class)->where([
     'id2' => 2,
     'login' => 'admin'
 ])->get();
-
-//$user = new User();
-//$user->setEmail('jora@mail.ru');
-//
-//$em->persist($user);
 
 echo '<pre>';
 var_dump($users);

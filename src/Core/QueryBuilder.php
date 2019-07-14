@@ -3,7 +3,7 @@ namespace Debra\Core;
 
 class QueryBuilder
 {
-    private $query;
+    protected $query;
 
     public function where(Array $conditions)
     {
