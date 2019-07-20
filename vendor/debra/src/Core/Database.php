@@ -9,7 +9,7 @@ class Database
      */
     public function loadConfiguration()
     {
-        $config = __DIR__  . '/../../config/database.cfg.php';
+        $config = $_SERVER['DOCUMENT_ROOT'] . '/config/database.php';
         try {
             if (file_exists($config)) {
                 $this->config = require_once($config);

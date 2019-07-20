@@ -8,22 +8,20 @@ use Debra\Core\EntityManager;
 use Debra\Entity\User;
 
 // INSERT example
-//$em = new EntityManager();
-//$em->setModel(User::class);
+// $em = new EntityManager();
+// $em->setModel(User::class);
 //
-//$user = new User();
-//$user->setLogin('jora2');
-//$user->setPassword('qwerty2');
-//$user->setEmail('jora2@mail.ru');
-//
-//$em->persist($user);
+// $user = new User();
+// $user->setLogin('Paul Connor');
+// $user->setPassword('12345678');
+// $user->setEmail('paul-connor@gmail.com');
 
 // UPDATE example
 $em = new EntityManager();
-$user = $em->setModel(User::class)->find(2);
-$user->setLogin('joppppppaaa2');
-$user->setPassword('qwertyaaa2');
-$user->setEmail('jora-papa2@mail.ru');
+$user = $em->setModel(User::class)->find(4);
+$user->setLogin('Paul Connor');
+// $user->setPassword('12345678');
+$user->setEmail('paul.connor@gmail.com');
 
 $em->persist($user);
 

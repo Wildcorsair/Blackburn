@@ -38,7 +38,8 @@ class EntityManager
 
 		try {
 			if (!empty($this->class)) {
-				$stmt = $this->dbh->prepare("SELECT * FROM `{$this->tableName}`");
+				$this->query = "SELECT * FROM `{$this->tableName}`";
+				$stmt = $this->dbh->prepare($this->query);
 				$stmt->execute();
 
 				while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
@@ -47,7 +48,7 @@ class EntityManager
 
 					foreach ($props as $property) {
 						if (isset($row[$property])) {
-							$setter = 'set' . ucfirst($property);
+							$setter = 'set' . $this->convertFieldName($property);
 							$obj->$setter($row[$property]);
 						}
 					}
@@ -67,7 +68,8 @@ class EntityManager
 		try {
 			if (is_numeric($id)) {
 				if (!empty($this->class)) {
-					$stmt = $this->dbh->prepare("SELECT * FROM `{$this->tableName}` WHERE `id` = :id LIMIT 0, 1");
+					$this->query = "SELECT * FROM `{$this->tableName}` WHERE `id` = :id LIMIT 0, 1";
+					$stmt = $this->dbh->prepare($this->query);
 					$stmt->execute(array('id' => $id));
 
 					$row = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -76,7 +78,7 @@ class EntityManager
 
 					foreach ($props as $property) {
 						if (isset($row[$property])) {
-							$setter = 'set' . ucfirst($property);
+							$setter = 'set' . $this->convertFieldName($property);
 							$obj->$setter($row[$property]);
 						}
 					}
@@ -156,7 +158,7 @@ class EntityManager
 
 			foreach ($props as $property) {
 				if (isset($row[$property])) {
-					$setter = 'set' . ucfirst($property);
+					$setter = 'set' . $this->convertFieldName($property);
 					$obj->$setter($row[$property]);
 				}
 			}
@@ -184,7 +186,7 @@ class EntityManager
                 foreach ($props as $property) {
                     $fields .= "`{$property}`,";
                     $placeholders .= ":{$property},";
-                    $getter = 'get' . ucfirst($property);
+                    $getter = 'get' . $this->convertFieldName($property);
                     $values[$property] = $model->$getter($property);
                 }
 
@@ -195,7 +197,7 @@ class EntityManager
             } else {
                 foreach ($props as $property) {
                     $fields .= "`{$property}` = :{$property},";
-                    $getter = 'get' . ucfirst($property);
+                	$getter = 'get' . $this->convertFieldName($property);
                     $values[$property] = $model->$getter($property);
                 }
 
@@ -207,5 +209,17 @@ class EntityManager
         } catch (\Exception $e) {
             echo '<strong>Error:</strong> ' . $e->getMessage();
         }
+	}
+
+	private function convertFieldName($field)
+	{
+		$parts = explode('_', $field);
+		$parts = array_map(
+			function($field) {
+				return ucfirst($field);
+			},
+			$parts
+		);
+		return implode('', $parts);
 	}
 }
