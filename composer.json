@@ -1,19 +1,21 @@
 {
-    "name": "debra/orm",
-    "description": "Sandbox for test project",
+    "name": "foxtool/blackburn",
+    "description": "Blackburn framework",
     "type": "project",
     "license": "MIT",
     "authors": [
         {
             "name": "Vladimir Zakharchenko",
-            "email": "vmzakharchenko@yandex.ru"
+            "email": "web.jungle.ua@gmail.com"
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "prefer-stable": true,
+    "require": {
+        "foxtool/debra": "dev-main"
+    },
     "autoload": {
         "psr-4": {
-            "Debra\\": "vendor/debra/src/",
             "Debra\\Entity\\": "app/Entity"
         }
     }

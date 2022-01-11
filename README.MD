@@ -1,3 +1,3 @@
-Debra project.
+Blackburn
 
-Data object mapping.
+The minimal tools for the small projects.

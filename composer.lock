@@ -1,0 +1,59 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "9b0dd8a61134db00664993d60afe36e7",
+    "packages": [
+        {
+            "name": "foxtool/debra",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FoxTool/Debra.git",
+                "reference": "63583dc73b0164cd1b703dd1243eb3f6e793be64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FoxTool/Debra/zipball/63583dc73b0164cd1b703dd1243eb3f6e793be64",
+                "reference": "63583dc73b0164cd1b703dd1243eb3f6e793be64",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "FoxTool\\Debra\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir Zakharchenko",
+                    "email": "web.jungle.ua@gmail.com"
+                }
+            ],
+            "description": "Small ORM for the small projects",
+            "support": {
+                "issues": "https://github.com/FoxTool/Debra/issues",
+                "source": "https://github.com/FoxTool/Debra/tree/main"
+            },
+            "time": "2022-01-11T15:07:22+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "foxtool/debra": 20
+    },
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
+}

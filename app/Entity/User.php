@@ -1,7 +1,7 @@
 <?php
 namespace Debra\Entity;
 
-use Debra\Core\Model;
+use FoxTool\Debra\Core\Model;
 
 class User extends Model
 {
