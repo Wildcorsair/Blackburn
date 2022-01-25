@@ -1,6 +1,6 @@
 {
     "name": "foxtool/blackburn",
-    "description": "Blackburn framework",
+    "description": "Blackburn micro framework",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -12,11 +12,12 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "foxtool/debra": "dev-main"
+        "foxtool/debra": "dev-main",
+        "foxtool/yukon": "dev-main"
     },
     "autoload": {
         "psr-4": {
-            "Debra\\Entity\\": "app/Entity"
+            "FoxTool\\Blackburn\\": "app/"
         }
     }
 }

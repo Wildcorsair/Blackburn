@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b0dd8a61134db00664993d60afe36e7",
+    "content-hash": "0459f07c3fa1ed0f28211de007c31330",
     "packages": [
         {
             "name": "foxtool/debra",
@@ -12,16 +12,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FoxTool/Debra.git",
-                "reference": "63583dc73b0164cd1b703dd1243eb3f6e793be64"
+                "reference": "4102c4af23c926d25c8f284c596760d0c6de4a0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FoxTool/Debra/zipball/63583dc73b0164cd1b703dd1243eb3f6e793be64",
-                "reference": "63583dc73b0164cd1b703dd1243eb3f6e793be64",
+                "url": "https://api.github.com/repos/FoxTool/Debra/zipball/4102c4af23c926d25c8f284c596760d0c6de4a0e",
+                "reference": "4102c4af23c926d25c8f284c596760d0c6de4a0e",
                 "shasum": ""
             },
             "default-branch": true,
-            "type": "project",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "FoxTool\\Debra\\": "src/"
@@ -42,14 +42,53 @@
                 "issues": "https://github.com/FoxTool/Debra/issues",
                 "source": "https://github.com/FoxTool/Debra/tree/main"
             },
-            "time": "2022-01-11T15:07:22+00:00"
+            "time": "2022-01-24T22:10:15+00:00"
+        },
+        {
+            "name": "foxtool/yukon",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FoxTool/Yukon.git",
+                "reference": "c5c6bb61543c91bd1f707e84b58fa7ccd34e6cfa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FoxTool/Yukon/zipball/c5c6bb61543c91bd1f707e84b58fa7ccd34e6cfa",
+                "reference": "c5c6bb61543c91bd1f707e84b58fa7ccd34e6cfa",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FoxTool\\Yukon\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir Zakharchenko",
+                    "email": "web.jungle.ua@gmail.com"
+                }
+            ],
+            "description": "Simple Router",
+            "support": {
+                "issues": "https://github.com/FoxTool/Yukon/issues",
+                "source": "https://github.com/FoxTool/Yukon/tree/main"
+            },
+            "time": "2022-01-25T17:34:29+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "foxtool/debra": 20
+        "foxtool/debra": 20,
+        "foxtool/yukon": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
