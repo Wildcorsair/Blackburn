@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Example controller for working with user.
+ * Example controller for working with text and json responses.
  */
 
 namespace FoxTool\Blackburn\Controller;
@@ -9,6 +9,7 @@ namespace FoxTool\Blackburn\Controller;
 use FoxTool\Blackburn\Controller;
 use FoxTool\Yukon\Core\Request;
 use FoxTool\Yukon\Core\Response;
+use FoxTool\Yukon\Core\View;
 use FoxTool\Debra\EntityManager;
 use FoxTool\Blackburn\Entity\User;
 
@@ -34,6 +35,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
+        echo $request->get('email');
         echo 'Create User';
     }
 

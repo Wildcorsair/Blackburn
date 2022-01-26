@@ -2,8 +2,10 @@
 
 use FoxTool\Yukon\Core\Router;
 
-Router::get('/', function() {
-    echo 'Home Page';
+Router::get('/', 'HomeController@index');
+
+Router::get('/version', function() {
+    echo 'v 1.0';
 });
 
 Router::prefix('/admin')->group(function() {
